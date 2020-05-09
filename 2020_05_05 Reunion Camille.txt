@@ -1,0 +1,121 @@
+projet AL
+
+Itérer faie une première version
+
+fiare 
+logique dan sle projet 
+mettre en place un bask (login + pw) 
+le back  
+container avec de la data 
+
+
+1/3 du projet 
+
+scrapper (100 ligne de code enviro)
+il est possible de mettre déja des data dans Mongo DB
+
+base de donnée mongoDB
+Monter un container avec mongoDB
+	creer fichier JSON avec les data tests
+	faire les requetes pour les insérer
+
+
+
+
+
+
+
+
+1)  allez a la rencontre de vos données
+2) 
+3) Back : avec Patrice 
+	section d'authentification 	=> 	login /logout/register
+	notion utilisateur		=>	CRUD creat / read/ update / delete
+	Section "produit" ( entité principale qu'on va manipuler)
+4) mysql : Partie Mysql
+	concevoir une première version de DB simple
+5) Mettre en place l'intégration continue
+
+
+mongoDB pase de donée non relationnelle
+
+
+
+
+
+Exemple scrapping :
+	https://medium.com/swlh/an-introduction-to-web-scraping-with-puppeteer-3d35a51fdca0
+
+Verifier que le site peut etre scrapper :
+	site/robots.txt
+
+
+
+
+
+
+
+
+
+
+
+exemple de DB MongoAtlas?..
+
+Personne
+Name
+Firstname
+Birthdate
+Hobby :
+- peche
+- chasse
+- tradition
+ChildorNot : False / True
+Children :
+- Vanessa
+- Stevy
+- Joe
+SELECT * FROM user WHERE name LIKE "Camille" LIMIT 1
+db.inventory.findOne( {name: "Camille"} )
+Table personne
+==============
+id, parent_id (le champs id d un autre user), name, first_name, birthdate, children_or_not, date_created, date_modified
+1, 0, "VanDam", "JeanClaude", "XX", true, XX/XX/XXXX, XX/XX/XXXX
+2, 1, "VanDam", "Vanessa", "XX", false, XX/XX/XXXX, XX/XX/XXXX
+3, 1, "VanDam", "Stevey", "XX", false, XX/XX/XXXX, XX/XX/XXXX
+4, 1, "VanDam", "Joe", "XX", false, XX/XX/XXXX, XX/XX/XXXX
+Table Hobby
+===========
+id, name, date_created, date_modified
+1, chasse, XX/XX/XXXX, XX/XX/XXXX
+2, peche, XX/XX/XXXX, XX/XX/XXXX
+3, tradition, XX/XX/XXXX, XX/XX/XXXX
+Table de jointure
+=================
+(id), id_personne, id_hobby
+1, 1, 1
+2, 1, 2
+3, 1, 3
+{
+    Personne
+    Name
+    Firstname
+    Birthdate
+    Hobby :
+        - peche
+        - chasse
+        - tradition
+    ChildorNot : False / True
+    Children :
+        - lien_vers_vanessa
+        - Stevy
+        - Joe
+}
+{
+    Personne
+    Name
+    Firstname
+    Birthdate   
+    Hobby :
+        - peche
+        - chasse
+}

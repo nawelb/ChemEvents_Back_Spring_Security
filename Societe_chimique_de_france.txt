@@ -1,0 +1,27 @@
+GROS TITRE :
+document.querySelector('article > header > h3 > span').innerText
+
+DEUXIEME GROS TITRE : 
+document.querySelector('article > header > h3').innerText
+
+IMAGE : 
+document.querySelector('img[class="picto"]').innerText
+
+DATE : 
+document.querySelector('div[class="caractencadre-spip date"]').innerText
+
+LIEU : 
+document.querySelector('div[class="lieu"]').innerText
+
+DESCRIPTION : 
+document.querySelector('article > main > div > p').innerText
+
+DOMAINES : 
+document.querySelector('article > main > div').innerText
+
+SITE WEB :
+document.querySelector('article > main > div > a').innerText
+document.querySelector('a[class="spip_out"]').innerText
+
+CONTACT :
+document.querySelector('a[class="spip_mail"]').innerText
