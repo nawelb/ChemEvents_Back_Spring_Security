@@ -5,9 +5,7 @@ const fs = require('fs')
 const SUBSCF_URL = (scf) => 'https://www.societechimiquedefrance.fr/spip.php?page=manifestation#/${scf}/'
 
 const self ={
-
-   
-
+ 
     browser: null,
     page: null, 
     initialize: async (scf) => {
@@ -24,26 +22,61 @@ const self ={
         //await self.page.pdf({path: './pdfs/page.pdf'});
     }, 
 
-    getReslults: async(nr) =>{
+    getResults: async(nr) =>{
 
-        let pagenumber = await self.page.$$('ul');
-        let listePage = [];
+       // let results = [];
 
-        for (let pageN in pagenumber){
-            let numeroPage = await pageN.$eval(('li'), node => node.innerText.trim()); 
-            listePage.push({
-              numeroPage  
-            })
-        }
+        //    let elements = await self.page.$$('div[class="ajaxbloc.ajax-id-manif_pagination.bind-ajaxReload"] > nav > ul > li');
+            //let results = [];
 
-        console.log(listePage);
+      //  for (let element of elements){
+//
+  //          let nextPage = await element.$eval('a', node => node.getAttribute('href'));
+//            //await self.page.$(('nav[class="pagination-cont"] > ul[class="pagination"] > li[class="active"] > a:nth-child(n)'), node => node.getElement('href'));
+      //      await self.page.goto(nextPage, {waitUntil: 'networkidle0'});
+            
+            
+                //    let new_results = await self.parseResult();
+
+                //    results=[ ...results, ...new_results ];
+
+                //new_results = await self.page.$(('nav[class="pagination-cont"] > ul[class="pagination"] > li[class="active"] > a.bind-ajax'), node => node.getElement('${n}'));
+                             
+             
+    
+                //       return results.slice(0, nr)
+      
 
 
+        // let pagenumber = await self.page.$$('ul');
+            //let new_results = await self.parseResult();
+            let results=[]
+            
+        do {
+            
+                let new_results = await self.parseResult();
+                //await page.waitForSelector('li:nth-child(${pageN}) > .bind-ajax')
+               try {
+                await self.page.click('body > div.container.bg-blanc > section:nth-child(1) > div > div.col-xs-12.col-md-offset-1.col-md-6 > div.ajaxbloc.ajax-id-manif_pagination.bind-ajaxReload > nav > ul > li.active + li > a')
+                results=[ ...results, ...new_results ];
+            } catch (error) {
+                console.log("click not working")   
+              }
+               
+                
+               
+                results.push({
+                new_results  
+                })
+            
+            
+        } while (results.length < nr);
+        
 
-       
     },
 
     parseResult: async () => {
+
 
         let elements = await self.page.$$('article');
         let results = [];
@@ -57,7 +90,6 @@ const self ={
 
             let img1 = null;
             let img2 = null; 
-
 
                 try{
                     img1 = await element.$eval('h3 > img:nth-child(1)', node => node.getAttribute('src'));
@@ -74,8 +106,7 @@ const self ={
             let tags = null;
             let email = null; 
             let siteWeb = null;
-            
-            
+                        
             try{
                 description = await element.$eval('main > div > p', node => node.innerText.trim());
                 tags = await element.$eval('main > div', node => node.innerText.trim());
@@ -89,7 +120,6 @@ const self ={
                 tags;
             }
     
-
             try{
                 tags = await element.$eval('main > div:nth-child(2)', node => node.innerText.trim());
                 email = await element.$eval('main > div:nth-child(2) > a[class="spip_mail"]', node => node.innerText.trim());
@@ -100,7 +130,6 @@ const self ={
                 siteWeb;   
                 tags;
             }
-
 
             try{
                 email = await element.$eval('main > div:nth-child(3) > a[class="spip_mail"]', node => node.innerText.trim());
