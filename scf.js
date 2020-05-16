@@ -24,31 +24,24 @@ const self ={
 
     getResults: async(nr) =>{
 
-            let results=[]
+        let results=[]
             
         do {
-            
-                let new_results = await self.parseResult();
-                results.push(...new_results)
-                //results=results.concat(new_results);
-                //results=[ ...results, ...new_results ];
-                //results.push(...new_results)
                try {
+
                 await self.page.click('body > div.container.bg-blanc > section:nth-child(1) > div > div.col-xs-12.col-md-offset-1.col-md-6 > div.ajaxbloc.ajax-id-manif_pagination.bind-ajaxReload > nav > ul > li.active + li > a')
                 
-            } catch (error) {
-                console.log("click not working")   
-              }
-                             
+                } catch (error) {
                 
-            
-            
-        } while (results.length < nr);
-        
-
+                    console.log("click not working")   
+                }
+            let new_results = await self.parseResult();
+            results.push(...new_results)               
            
-            return results.slice(0, nr)
-          
+        } while (results.length < nr);    
+
+            return results.slice(0, nr)       
+        
         },
 
     parseResult: async () => {
