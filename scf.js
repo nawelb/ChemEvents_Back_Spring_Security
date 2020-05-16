@@ -24,56 +24,32 @@ const self ={
 
     getResults: async(nr) =>{
 
-       // let results = [];
-
-        //    let elements = await self.page.$$('div[class="ajaxbloc.ajax-id-manif_pagination.bind-ajaxReload"] > nav > ul > li');
-            //let results = [];
-
-      //  for (let element of elements){
-//
-  //          let nextPage = await element.$eval('a', node => node.getAttribute('href'));
-//            //await self.page.$(('nav[class="pagination-cont"] > ul[class="pagination"] > li[class="active"] > a:nth-child(n)'), node => node.getElement('href'));
-      //      await self.page.goto(nextPage, {waitUntil: 'networkidle0'});
-            
-            
-                //    let new_results = await self.parseResult();
-
-                //    results=[ ...results, ...new_results ];
-
-                //new_results = await self.page.$(('nav[class="pagination-cont"] > ul[class="pagination"] > li[class="active"] > a.bind-ajax'), node => node.getElement('${n}'));
-                             
-             
-    
-                //       return results.slice(0, nr)
-      
-
-
-        // let pagenumber = await self.page.$$('ul');
-            //let new_results = await self.parseResult();
             let results=[]
             
         do {
             
                 let new_results = await self.parseResult();
-                //await page.waitForSelector('li:nth-child(${pageN}) > .bind-ajax')
+                results.push(...new_results)
+                //results=results.concat(new_results);
+                //results=[ ...results, ...new_results ];
+                //results.push(...new_results)
                try {
                 await self.page.click('body > div.container.bg-blanc > section:nth-child(1) > div > div.col-xs-12.col-md-offset-1.col-md-6 > div.ajaxbloc.ajax-id-manif_pagination.bind-ajaxReload > nav > ul > li.active + li > a')
-                results=[ ...results, ...new_results ];
+                
             } catch (error) {
                 console.log("click not working")   
               }
-               
+                             
                 
-               
-                results.push({
-                new_results  
-                })
             
             
         } while (results.length < nr);
         
 
-    },
+           
+            return results.slice(0, nr)
+          
+        },
 
     parseResult: async () => {
 
