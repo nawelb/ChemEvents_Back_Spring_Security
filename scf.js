@@ -39,9 +39,10 @@ const self ={
             results.push(...new_results)               
            
         } while (results.length < nr);    
-
+        let data = JSON.stringify(results, null, 2);
+        fs.writeFileSync('./Scrapping/json/scfEvents.json', data);
             return results.slice(0, nr)       
-        
+            
         },
 
     parseResult: async () => {
@@ -78,36 +79,33 @@ const self ={
                         
             try{
                 description = await element.$eval('main > div > p', node => node.innerText.trim());
-                tags = await element.$eval('main > div', node => node.innerText.trim());
-                email = await element.$eval('main > div > a[class="spip_mail"]', node => node.innerText.trim());
-                siteWeb = await element.$eval('main > div > a[class="spip_out"]', node => node.getAttribute('href'));
-            
             }catch{
                 description;
-                email;
-                siteWeb;
-                tags;
-            }
-    
-            try{
-                tags = await element.$eval('main > div:nth-child(2)', node => node.innerText.trim());
-                email = await element.$eval('main > div:nth-child(2) > a[class="spip_mail"]', node => node.innerText.trim());
-                siteWeb = await element.$eval('main > div:nth-child(2) > a[class="spip_out"]', node => node.getAttribute('href'));
-            
-            }catch{  
-                email;
-                siteWeb;   
-                tags;
             }
 
             try{
-                email = await element.$eval('main > div:nth-child(3) > a[class="spip_mail"]', node => node.innerText.trim());
-                siteWeb = await element.$eval('main > div:nth-child(3) > a[class="spip_out"]', node => node.getAttribute('href'));
-            
-            }catch{ 
+                email = await element.$eval('main > div > a[class="spip_mail"]', node => node.innerText.trim());
+            }catch{
                 email;
-                siteWeb;  
             }
+            
+            try{
+                siteWeb = await element.$eval('main > div > a[class="spip_out"]', node => node.getAttribute('href'));
+            
+            }catch{
+                siteWeb;
+            }
+            
+            try{
+                tags = await element.$eval('main > div', node => node.innerText.trim());
+                    if(tags!=description)return tags
+                    else tags==null;
+            }catch{
+                tags;
+            }
+
+    
+           
 
             results.push({
                 img1,
@@ -116,19 +114,40 @@ const self ={
                 title2,
                 description,
                 date, 
-                lieu, email, 
+                lieu, 
+                email, 
                 siteWeb, 
                 tags
              })
             
-             let data = JSON.stringify(results, null, 2);
-             fs.writeFileSync('./Scrapping/json/scfArticles.json', data);
+             
 
         }
-       
+        //let data = JSON.stringify(results, null, 2);
+        //fs.writeFileSync('./Scrapping/json/scfEvents.json', data);
         return results;
         
-    
+
+        /*const MongoClient = require('mongodb').MongoClient;
+        const assert = require('assert');
+
+        // Connection URL
+        const url = 'mongodb://localhost:27017';
+
+        // Database Name
+        const dbName = 'myproject';
+
+        // Use connect method to connect to the server
+        MongoClient.connect(url, function(err, client) {
+        assert.equal(null, err);
+        console.log("Connected successfully to server");
+
+        const db = client.db(dbName);
+
+        client.close();
+        });*/
+
+
         
     
     }
