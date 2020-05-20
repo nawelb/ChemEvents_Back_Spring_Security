@@ -98,14 +98,32 @@ const self ={
             
             try{
                 tags = await element.$eval('main > div', node => node.innerText.trim());
-                    if(tags!=description)return tags
-                    else tags==null;
             }catch{
                 tags;
             }
 
-    
-           
+        // Pour nettoyer le code
+        // à vérifier lors de l'ajout en base de données
+            function strReplace(myStr){
+                if (myStr!=null){
+                    if(myStr.includes('\n')){
+                        myStr.replace(/\n/g, " ");
+                    }
+                    if(myStr.includes('\n\t\t\t')){
+                        myStr.replace(/\n\t\t\t/g, " ");
+                    }   
+                    else{
+                        return myStr
+                    }       
+                } else {
+                    return myStr
+                }   
+            }
+
+            title1 = strReplace(title1)
+            title2 = strReplace(title2)
+            description = strReplace(description)
+          
 
             results.push({
                 img1,
