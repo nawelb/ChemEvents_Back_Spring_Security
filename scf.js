@@ -2,6 +2,7 @@
 const puppeteer = require('puppeteer')
 const fs = require('fs')
 
+
 const SUBSCF_URL = (scf) => 'https://www.societechimiquedefrance.fr/spip.php?page=manifestation#/${scf}/'
 
 const self ={
@@ -138,40 +139,17 @@ const self ={
                 tags
              })
             
-             
+         
 
         }
         //let data = JSON.stringify(results, null, 2);
         //fs.writeFileSync('./Scrapping/json/scfEvents.json', data);
         return results;
         
-
-        /*const MongoClient = require('mongodb').MongoClient;
-        const assert = require('assert');
-
-        // Connection URL
-        const url = 'mongodb://localhost:27017';
-
-        // Database Name
-        const dbName = 'myproject';
-
-        // Use connect method to connect to the server
-        MongoClient.connect(url, function(err, client) {
-        assert.equal(null, err);
-        console.log("Connected successfully to server");
-
-        const db = client.db(dbName);
-
-        client.close();
-        });*/
-
-
         
     
     }
  
 }
-
-
 
 module.exports = self;

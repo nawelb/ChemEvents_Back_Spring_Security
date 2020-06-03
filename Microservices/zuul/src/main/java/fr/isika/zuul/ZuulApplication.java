@@ -1,14 +1,16 @@
-package fr.isika.microservice.evenement;
+package fr.isika.zuul;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-@SpringBootApplication
+import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @EnableDiscoveryClient
-public class MicroserviceEvenementApplication {
+@EnableZuulProxy
+@SpringBootApplication
+public class ZuulApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MicroserviceEvenementApplication.class, args);
+		SpringApplication.run(ZuulApplication.class, args);
 	}
 
 }
