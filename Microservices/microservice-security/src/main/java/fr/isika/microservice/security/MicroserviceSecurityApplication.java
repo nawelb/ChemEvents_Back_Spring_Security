@@ -2,13 +2,13 @@ package fr.isika.microservice.security;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+//import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ApplicationContext;
 
 import fr.isika.microservice.security.dao.ParticulierRepository;
 import fr.isika.microservice.security.model.Particulier;
 
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
 public class MicroserviceSecurityApplication {
 

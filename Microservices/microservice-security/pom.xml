@@ -21,10 +21,10 @@
 
 	<dependencies>
 <!-- 	dependence pour Spring Security -->
-<!-- 		<dependency>
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency> -->
+		</dependency> 
 			
 <!-- 	dependence de base pour un projet Spring -->
 		<dependency>
@@ -48,7 +48,7 @@
 		</dependency>
 
 <!-- 	dependence pour la gestion des configurations par un Config-Server -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-configuration-processor</artifactId>
 			<optional>true</optional>
@@ -56,7 +56,7 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-config</artifactId>
-		</dependency>
+		</dependency> -->
 		 <!-- JDBC -->      
         <dependency>
             <groupId>org.springframework</groupId>
@@ -64,16 +64,16 @@
             </dependency>
 
 <!-- 	dependence pour un rafraichissement des microservices apres modification par methode post -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
-		</dependency>
+		</dependency> -->
 		
 <!-- 	dependence pour un serveur d'enregistrement des instances et microservices -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-		</dependency>
+		</dependency> -->
 
 <!-- 	dependence de base pour les tests -->
 		<dependency>
