@@ -10,5 +10,4 @@ public interface UserRepository extends CrudRepository <User, String>{
 
 	void deleteByUsername(String username);
 
-
 }
