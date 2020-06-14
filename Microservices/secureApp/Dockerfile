@@ -1,3 +1,3 @@
 From openjdk:8
-copy ./target/secureApp.jar Dockerfile.jar
-CMD ["java","-jar","Dockerfile.jar"]
+copy ./target/secureApp.jar secureApp.jar
+CMD ["java","-jar","secureApp.jar"]
