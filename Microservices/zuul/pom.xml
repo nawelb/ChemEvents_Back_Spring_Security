@@ -20,6 +20,7 @@
 	</properties>
 
 	<dependencies>
+			
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-zuul</artifactId>
@@ -31,13 +32,13 @@
 <!-- 	dependence pour un serveur d'enregistrement des instances et microservices -->
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 <!-- 	dependence pour Spring Security -->
-		<dependency>
+<!--  		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency> --> 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -49,6 +50,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		        <!-- JDBC -->      
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            </dependency>
 	</dependencies>
 
 	<dependencyManagement>

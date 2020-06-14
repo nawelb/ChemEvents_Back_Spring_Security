@@ -24,7 +24,6 @@ public class Particulier implements Serializable{
 	private String prenom;
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dateDeNaissance; 
-//	@Id
 	private String email;
 	private String adresse; 
 	private String ville; 

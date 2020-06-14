@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 
 import fr.isika.microservice.security.dao.ParticulierRepository;
 import fr.isika.microservice.security.model.Particulier;
+
 @EnableDiscoveryClient
 @SpringBootApplication
 public class MicroserviceSecurityApplication {
