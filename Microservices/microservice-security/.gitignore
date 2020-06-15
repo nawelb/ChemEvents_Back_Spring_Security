@@ -4,8 +4,9 @@ target/classes/
 target/generated-sources/
 target/generated-test-sources/
 target/maven-archiver/
+target/m2ewtp/
 target/maven-status/
-WEB-INF/
+target/microservice-user/
 target/surefire-reports/
 target/test-classes/
 !.mvn/wrapper/maven-wrapper.jar
@@ -39,4 +40,4 @@ build/
 .vscode/
 #/target/
 #/target/
-/target/
+
