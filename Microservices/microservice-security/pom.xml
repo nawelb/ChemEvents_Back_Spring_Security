@@ -111,7 +111,7 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
-					<mainClass>org.mycontrib.api.MySpringBootApplication</mainClass>
+					<mainClass>fr.isika.microservice.security.MicroserviceSecurityApplication</mainClass>
 					<layout>ZIP</layout>
 				</configuration>
 			</plugin>
