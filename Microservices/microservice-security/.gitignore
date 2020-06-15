@@ -5,6 +5,7 @@ target/generated-sources/
 target/generated-test-sources/
 target/maven-archiver/
 target/maven-status/
+WEB-INF/
 target/surefire-reports/
 target/test-classes/
 !.mvn/wrapper/maven-wrapper.jar
