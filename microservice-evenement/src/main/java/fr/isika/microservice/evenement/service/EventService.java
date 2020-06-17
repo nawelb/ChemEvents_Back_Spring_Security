@@ -6,10 +6,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.gson.Gson;
@@ -24,7 +27,9 @@ import com.google.gson.GsonBuilder;
 
 import fr.isika.microservice.evenement.dao.EventRepository;
 import fr.isika.microservice.evenement.model.Event;
-import fr.isika.microservice.evenement.model.Events;
+import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
+//import fr.isika.microservice.evenement.model.Events;
 //import fr.isika.microservice.evenement.model.EventList;
 
 @RequestMapping(path="/event")
@@ -34,11 +39,61 @@ public class EventService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-//	@Autowired
-//	private WebClient.Builder webClientBuilder;  
+	private WebClient client = WebClient.create("http://localhost:3000");
 	
-//	@Autowired
-//	private EventRepository eventRepository; 
+	@GetMapping
+	public Flux<Event> getEvents(){
+		return client.get()
+				.uri("/event-api/public/event")
+				.accept(MediaType.APPLICATION_JSON)
+				.retrieve()
+				.bodyToFlux(Event.class)
+				.log("heyy$*****");
+	}
+	
+	@GetMapping("/{_id}")
+	public Mono<Event>getEventById(@PathVariable("_id") String _id){
+		return client.get().uri("/event-api/public/event/{_id}", _id)
+				.accept(MediaType.APPLICATION_JSON)
+				.retrieve()
+				.bodyToMono(Event.class)
+				.log("********hey IIIIDDDDD************");	
+	}
+	
+	@PostMapping
+	public Mono<Event>createEvent(@RequestBody Event event){
+		return client.post().uri("/event-api/private/role-admin/event")
+				.accept(MediaType.APPLICATION_JSON)
+				.body(BodyInserters.fromObject(event))
+				.retrieve()
+				.bodyToMono(Event.class)
+				.log("********hey CREATE ************");	
+	}
+	
+	@PutMapping
+	public Mono<Event> updateEvent(@RequestBody Event event){
+		return client.put().uri("/event-api/private/role-admin/event")
+				.accept(MediaType.APPLICATION_JSON)
+				.syncBody(event)
+				.retrieve()
+				.bodyToMono(Event.class)
+				.log("**Hey   UPDATE***********");
+				
+	}
+	
+	@DeleteMapping("/{_id}")
+	public Mono<Event> deleteEvent(@PathVariable("_id") String _id){
+		return client.delete().uri("/event-api/private/role-admin/event/{_id}", _id)
+				.accept(MediaType.APPLICATION_JSON)
+				.retrieve()
+				.bodyToMono(Event.class)
+				.log("**Hey   DELETE***********" + _id);
+	}
+	
+	
+	
+	
+	
 	
 	// CRUD PARTICULIER
 	
@@ -48,28 +103,28 @@ public class EventService {
 //		}
 		
 	
-		@GetMapping(path="/listerLesEvents")  
-		public @ResponseBody Event[] getAllEvents() {
-			// RestTemplate String
-		   // RestTemplate restTemplate = new RestTemplate();
-		    String result = restTemplate.getForObject("http://localhost:3000/event-api/public/event", String.class);
-		    System.out.println("StringJson: " + result);
-			//return result;
-		    final Gson gson = new GsonBuilder()
-		    	//	.registerTypeAdapter(
-//		    LocalDate.class, new JsonDeserializer<LocalDate>() {
-//	            @Override
-//	            public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
-//	                return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
-//	            
-//		    		}
-//	        }
-//		    		)
-.create();
-		    Event[] articleArray = gson.fromJson(result, Event[].class);
-		    System.out.println("Gson : " + articleArray.toString());
-		    return articleArray;
-		}
+//	@GetMapping(path="/listerLesEvents")  
+//		public @ResponseBody Event[] getAllEvents() {
+//			// RestTemplate String
+//		   // RestTemplate restTemplate = new RestTemplate();
+//		    String result = restTemplate.getForObject("http://localhost:3000/event-api/public/event", String.class);
+//		    System.out.println("StringJson: " + result);
+//			//return result;
+//		    final Gson gson = new GsonBuilder()
+//		    	//	.registerTypeAdapter(
+////		    LocalDate.class, new JsonDeserializer<LocalDate>() {
+////	            @Override
+////	            public LocalDate deserialize(JsonElement json, Type type, JsonDeserializationContext jsonDeserializationContext) throws JsonParseException {
+////	                return LocalDate.parse(json.getAsJsonPrimitive().getAsString());
+////	            
+////		    		}
+////	        }
+////		    		)
+//		    		.create();
+//		    Event[] articleArray = gson.fromJson(result, Event[].class);
+//		    System.out.println("Gson : " + articleArray.toString());
+//		    return articleArray;
+//		}
 		
 		
 		
