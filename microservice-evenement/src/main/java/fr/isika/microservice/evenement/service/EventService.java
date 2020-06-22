@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.http.MediaType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,8 +32,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 //import fr.isika.microservice.evenement.model.Events;
 //import fr.isika.microservice.evenement.model.EventList;
-
-@RequestMapping(path="/event")
+@CrossOrigin("*")
+@RequestMapping(path="/event-api")
 @RestController
 public class EventService {
 	
@@ -41,17 +42,17 @@ public class EventService {
 	
 	private WebClient client = WebClient.create("http://localhost:3000");
 	
-	@GetMapping
+	@GetMapping(path="public/events") 
 	public Flux<Event> getEvents(){
 		return client.get()
-				.uri("/event-api/public/event")
+				.uri("/event-api/public/events")
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.bodyToFlux(Event.class)
 				.log("heyy$*****");
 	}
 	
-	@GetMapping("/{_id}")
+	@GetMapping("public/{_id}")
 	public Mono<Event>getEventById(@PathVariable("_id") String _id){
 		return client.get().uri("/event-api/public/event/{_id}", _id)
 				.accept(MediaType.APPLICATION_JSON)
@@ -60,9 +61,9 @@ public class EventService {
 				.log("********hey IIIIDDDDD************");	
 	}
 	
-	@PostMapping
+	@PostMapping("private/event")
 	public Mono<Event>createEvent(@RequestBody Event event){
-		return client.post().uri("/event-api/private/role-admin/event")
+		return client.post().uri("/event-api/private/event")
 				.accept(MediaType.APPLICATION_JSON)
 				.body(BodyInserters.fromObject(event))
 				.retrieve()
@@ -72,7 +73,7 @@ public class EventService {
 	
 	@PutMapping
 	public Mono<Event> updateEvent(@RequestBody Event event){
-		return client.put().uri("/event-api/private/role-admin/event")
+		return client.put().uri("private/role-admin/event")
 				.accept(MediaType.APPLICATION_JSON)
 				.syncBody(event)
 				.retrieve()
@@ -83,7 +84,7 @@ public class EventService {
 	
 	@DeleteMapping("/{_id}")
 	public Mono<Event> deleteEvent(@PathVariable("_id") String _id){
-		return client.delete().uri("/event-api/private/role-admin/event/{_id}", _id)
+		return client.delete().uri("private/role-admin/event/{_id}", _id)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.bodyToMono(Event.class)
