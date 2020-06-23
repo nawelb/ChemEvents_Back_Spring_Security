@@ -17,7 +17,14 @@ public class Event {
 	private String img2;
 	private String description;
 	private String date;
+	private String dateDebut;
+	private String dateFin;
 	private String lieu;
+	private String city;
+	private String country;
+	private String submitAbstract;
+	private String register;
+	private String usefullLinks;
 	private String email;
     private String siteWeb;
     private String tags;
@@ -32,6 +39,64 @@ public class Event {
 	public void set_id(String _id) {
 		this._id = _id;
 	}
+	
+	public String getDateDebut() {
+		return dateDebut;
+	}
+
+	public void setDateDebut(String dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+
+	public String getDateFin() {
+		return dateFin;
+	}
+
+	public void setDateFin(String dateFin) {
+		this.dateFin = dateFin;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getCountry() {
+		return country;
+	}
+
+	public void setCountry(String country) {
+		this.country = country;
+	}
+
+	public String getSubmitAbstract() {
+		return submitAbstract;
+	}
+
+	public void setSubmitAbstract(String submitAbstract) {
+		this.submitAbstract = submitAbstract;
+	}
+
+	public String getRegister() {
+		return register;
+	}
+
+	public void setRegister(String register) {
+		this.register = register;
+	}
+
+	public String getUsefullLinks() {
+		return usefullLinks;
+	}
+
+	public void setUsefullLinks(String usefullLinks) {
+		this.usefullLinks = usefullLinks;
+	}
+
+	
 	public String getTitle1() {
 		return title1;
 	}
@@ -93,34 +158,31 @@ public class Event {
 		this.tags = tags;
 	}
 
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder();
-		builder.append("Event [_id=");
-		builder.append(_id);
-		builder.append(", title1=");
-		builder.append(title1);
-		builder.append(", title2=");
-		builder.append(title2);
-		builder.append(", img1=");
-		builder.append(img1);
-		builder.append(", img2=");
-		builder.append(img2);
-		builder.append(", description=");
-		builder.append(description);
-		builder.append(", date=");
-		builder.append(date);
-		builder.append(", lieu=");
-		builder.append(lieu);
-		builder.append(", email=");
-		builder.append(email);
-		builder.append(", siteWeb=");
-		builder.append(siteWeb);
-		builder.append(", tags=");
-		builder.append(tags);
-		builder.append("]");
-		return builder.toString();
+	public Event(String _id, String title1, String title2, String img1, String img2, String description, String date,
+			String dateDebut, String dateFin, String lieu, String city, String country, String submitAbstract,
+			String register, String usefullLinks, String email, String siteWeb, String tags) {
+		super();
+		this._id = _id;
+		this.title1 = title1;
+		this.title2 = title2;
+		this.img1 = img1;
+		this.img2 = img2;
+		this.description = description;
+		this.date = date;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.lieu = lieu;
+		this.city = city;
+		this.country = country;
+		this.submitAbstract = submitAbstract;
+		this.register = register;
+		this.usefullLinks = usefullLinks;
+		this.email = email;
+		this.siteWeb = siteWeb;
+		this.tags = tags;
 	}
+
+	
 	
 	
 	

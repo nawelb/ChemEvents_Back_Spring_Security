@@ -1,12 +1,16 @@
 package fr.isika.microservice.evenement.service;
 
+import java.net.URI;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,10 +21,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.BodyInserters;
+import org.springframework.web.reactive.function.client.ExchangeFunction;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import com.google.gson.Gson;
@@ -40,7 +46,13 @@ public class EventService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	private WebClient client = WebClient.create("http://localhost:3000");
+	private WebClient client; //= WebClient.create("http://localhost:3000");
+	
+	
+	public EventService(WebClient.Builder webClientBuilder) {
+		this.client = webClientBuilder.baseUrl("http://localhost:3000").build();
+	}
+	
 	
 	@GetMapping(path="public/events") 
 	public Flux<Event> getEvents(){
@@ -49,15 +61,16 @@ public class EventService {
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.bodyToFlux(Event.class)
-				.log("heyy$*****");
+				.log("heyy$*****"); 
 	}
+	 
 	
-	@GetMapping("public/{_id}")
+	@GetMapping("public/event/{_id}")
 	public Mono<Event>getEventById(@PathVariable("_id") String _id){
 		return client.get().uri("/event-api/public/event/{_id}", _id)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
-				.bodyToMono(Event.class)
+				.bodyToMono(Event.class) 
 				.log("********hey IIIIDDDDD************");	
 	}
 	
@@ -71,25 +84,92 @@ public class EventService {
 				.log("********hey CREATE ************");	
 	}
 	
-	@PutMapping
+	
+	@PutMapping ("private/admin/event")
 	public Mono<Event> updateEvent(@RequestBody Event event){
-		return client.put().uri("private/role-admin/event")
+		return client.put().uri("event-api/private/role-admin/event")
 				.accept(MediaType.APPLICATION_JSON)
 				.syncBody(event)
 				.retrieve()
 				.bodyToMono(Event.class)
 				.log("**Hey   UPDATE***********");
-				
 	}
 	
-	@DeleteMapping("/{_id}")
+	
+	@RequestMapping(value = "public/event", params = "country" )
+	public Flux<Event>getEventByCountry(@RequestParam String country){
+		System.out.println("DANS COUNTRY !!!!");
+		return client.get().uri("/event-api/public/event?country="+country)
+				.accept(MediaType.APPLICATION_JSON)
+				.retrieve() 
+				.bodyToFlux(Event.class) 
+				.log("********COUUNTTRYY************");	
+	}
+	
+	@RequestMapping(value = "public/event", params = "city" )
+	public Flux<Event>getEventByCity(@RequestParam String city){
+		System.out.println("DANS COUNTRY !!!!");
+		return client.get().uri("/event-api/public/event?city="+city)
+				.accept(MediaType.APPLICATION_JSON)
+				.retrieve() 
+				.bodyToFlux(Event.class) 
+				.log("********CCCIIIITTTYYYYY************");	
+	}
+	
+	
+	@DeleteMapping("private/admin/delete/{_id}")
 	public Mono<Event> deleteEvent(@PathVariable("_id") String _id){
 		return client.delete().uri("private/role-admin/event/{_id}", _id)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.bodyToMono(Event.class)
 				.log("**Hey   DELETE***********" + _id);
+		
 	}
+	
+	
+	
+
+//	@GetMapping("public/event")
+//	public Flux<Event>getEventByCity(@RequestParam(value="city", required=false) String city){
+//		System.out.println("DANS CITY !!!!");
+//		return client.get().uri("/event-api/public/event?city="+city)
+//				.accept(MediaType.APPLICATION_JSON)
+//				.retrieve()
+//				.bodyToFlux(Event.class) 
+//				.log("********CIIITYYYYY************");	
+//	}
+	 
+	
+	
+	// ATTENTION RECHERCHE %Like%
+	
+//	@GetMapping(path="/public/event/{title1}")
+//	public Mono<Event>getEventByTitle1(@PathVariable("title1") String title1){
+//		return client.get().uri("/event-api/public/event/{title1}", title1)
+//				.retrieve()
+//				.onStatus(httpStatus -> HttpStatus.INTERNAL_SERVER_ERROR.equals(httpStatus),
+//		                clientResponse -> Mono.empty())
+//				.bodyToMono(Event.class)
+//				.log("********hey IIIIDDDDD************");	
+//	}
+	
+//	@GetMapping(path="/public/{title2}")
+//	public Mono<Event>getEventByTitle2(@PathVariable("title2") String title2){
+//		return client.get().uri("/event-api/public/event/{title2}", title2)
+//				.retrieve()
+//				.onStatus(httpStatus -> HttpStatus.INTERNAL_SERVER_ERROR.equals(httpStatus),
+//		                clientResponse -> Mono.empty())
+//				.bodyToMono(Event.class)
+//				.log("********hey IIIIDDDDD************");	
+//	}
+	
+	
+	
+
+	
+
+	
 	
 	
 	
