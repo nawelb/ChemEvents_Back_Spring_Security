@@ -117,9 +117,9 @@ public class EventService {
 	}
 	
 	
-	@DeleteMapping("private/admin/delete/{_id}")
+	@DeleteMapping("private/admin/event/{_id}")
 	public Mono<Event> deleteEvent(@PathVariable("_id") String _id){
-		return client.delete().uri("private/role-admin/event/{_id}", _id)
+		return client.delete().uri("/event-api/private/role-admin/deleteEvent/{_id}", _id)
 				.accept(MediaType.APPLICATION_JSON)
 				.retrieve()
 				.bodyToMono(Event.class)
