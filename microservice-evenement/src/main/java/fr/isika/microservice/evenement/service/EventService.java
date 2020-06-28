@@ -116,7 +116,7 @@ public class EventService {
 				.log("********CCCIIIITTTYYYYY************");	
 	}
 	
-	@RequestMapping(value = "public/event/search")
+	@RequestMapping(value = "public/event")
 	public Flux<Event>getEventByKeyWord(@RequestParam String research){
 		System.out.println("DANS COUNTRY !!!!");
 		return client.get().uri("/event-api/public/search?research="+research)
