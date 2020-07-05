@@ -72,6 +72,7 @@ public class EventService {
 	
 	@PutMapping ("private/admin/event")
 	public Mono<Event> updateEvent(@RequestBody Event event){
+		System.out.println("LAAAAA");
 		return client.put().uri("event-api/private/role-admin/updateEvent")
 				.accept(MediaType.APPLICATION_JSON)
 				.syncBody(event)
