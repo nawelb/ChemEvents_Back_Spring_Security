@@ -32,7 +32,6 @@ public class EventService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	//String url = "${HOST_NAME}";
 	private WebClient client= WebClient.create(System.getenv("HOST_NAME"));
 	//private WebClient client; //= WebClient.create("http://localhost:3000");
 
