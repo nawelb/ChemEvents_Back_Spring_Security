@@ -32,12 +32,14 @@ public class EventService {
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	private WebClient client; //= WebClient.create("http://localhost:3000");
+	//String url = "${HOST_NAME}";
+	private WebClient client= WebClient.create(System.getenv("HOST_NAME"));
+	//private WebClient client; //= WebClient.create("http://localhost:3000");
+
 	
-	
-	public EventService(WebClient.Builder webClientBuilder) {
-		this.client = webClientBuilder.baseUrl("http://localhost:3000").build();
-	}
+//	public EventService(WebClient.Builder webClientBuilder) {
+//		this.client = webClientBuilder.baseUrl("http://localhost:3000").build();
+//	}
 	
 	
 	@GetMapping(path="public/events") 
