@@ -71,6 +71,7 @@ Add environnement variables :
  - PORT_EVENT : free port to allow this application to run
  - HOST_NAME : as url of your node API [cf node API]
  - MYSQL_URL : url of your MySQL database
+ - MYSQL_DB_NAME : name of your MySQL database
  - MYSQL_USERNAME : Username to access to your MySQL Database
  - MYSQL_PASSWORD : Password to access to your MySQL Database
  - JWT_SECRET : Create a secret word to secure your token
